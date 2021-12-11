@@ -1,0 +1,26 @@
+---
+
+- name: query all security groups
+  ec2_group_info:
+    filters:
+      description: "default VPC security group"
+  register: regSecGroup
+
+- name: assign security group id to variable
+  set_fact:
+    factSecGroup: "{{ regSecGroup.security_groups[0].group_id }}"
+
+- name: Provision instance(s)
+  ec2:
+    aws_access_key: "{{ec2_access_key}}"
+    aws_secret_key: "{{ec2_secret_key}}"
+    key_name: "{{ key_name }}"
+    id: "{{ host_id }}"
+    group_id: "{{ result_sec_group.group_id }}"
+    image: "{{ image }}"
+    instance_type: t2.micro
+    instance_tags:
+      agw: docker
+    region: "{{ region }}"
+    wait: true
+    count: 1

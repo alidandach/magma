@@ -1,0 +1,6 @@
+---
+
+image: ami-09e67e426f25ce0d7
+key_name: dockerAMI
+region: us-east-1
+host_id: docker_agw

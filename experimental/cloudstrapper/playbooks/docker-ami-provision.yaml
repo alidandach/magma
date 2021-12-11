@@ -1,12 +1,10 @@
 ---
-
-- hosts: "{{docker_host}}"
+- hosts: localhost
   roles:
-    - { role: ghz-platform, tags: platform }
+    - docker-infra
+    - aws-inventory
   vars_files:
-    - roles/vars/defaults.yaml
-    - roles/vars/cluster.yaml
-    - "{{ dirLocalInventory }}/secrets.yaml"
+    - roles/vars/secrets.yaml
   environment:
     AWS_ACCESS_KEY_ID: "{{ awsAccessKey }}"
     AWS_SECRET_ACCESS_KEY: "{{ awsSecretKey }}"
